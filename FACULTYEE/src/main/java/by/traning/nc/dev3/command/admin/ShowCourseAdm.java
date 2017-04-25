@@ -18,6 +18,7 @@ public class ShowCourseAdm implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
            String page = null;
+
         try{
             HttpSession session = request.getSession();
             CourseDAO courseDAO = new CourseDAO();

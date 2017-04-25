@@ -2,8 +2,8 @@ package by.traning.nc.dev3.dao;
 
 import by.traning.nc.dev3.beans.User;
 import by.traning.nc.dev3.connectionpool.ConnectionPool;
-import by.traning.nc.dev3.dao.DAOImpl.UserDAOImpl;
-import by.traning.nc.dev3.filters.NamesTable;
+import by.traning.nc.dev3.finals.NamesTable;
+import by.traning.nc.dev3.finals.Parameters;
 import by.traning.nc.dev3.finals.SqlRequests;
 
 import java.sql.Connection;
@@ -17,6 +17,7 @@ import java.util.List;
  * Created by ivan on 11.04.2017.
  */
 public class UserDAO implements GenericDAO<User> {
+
 
     @Override
     public List<User> findAll() throws SQLException {
@@ -32,10 +33,25 @@ public class UserDAO implements GenericDAO<User> {
             user.setLogin(resultSet.getString(NamesTable.USER_LOGIN));
             userList.add(user);
         }
-
         ConnectionPool.INSTANCE.initConnection(connection);
         return userList;
     }
+
+    public List<User> findFiAndLaName() throws SQLException {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SqlRequests.GET_F_L_NAME);
+        ResultSet resultSet = statement.executeQuery();
+        List<User> userList = new ArrayList<>();
+        while(resultSet.next()){
+            User user = new User();
+            user.setFirstName(resultSet.getString(NamesTable.USER_FIRST_NAME));
+            user.setLastName(resultSet.getString(NamesTable.USER_LAST_NAME));
+            userList.add(user);
+        }
+        ConnectionPool.INSTANCE.initConnection(connection);
+        return userList;
+    }
+
 
 
 
@@ -43,6 +59,7 @@ public class UserDAO implements GenericDAO<User> {
     public void create(User entity) throws SQLException {
         Connection connection = ConnectionPool.INSTANCE.getConnection();
         PreparedStatement statement = connection.prepareStatement(SqlRequests.ADD_STUDENT);
+
         statement.setString(1, entity.getFirstName());
         statement.setString(2, entity.getLastName());
         statement.setString(3, entity.getLogin());
@@ -79,7 +96,7 @@ public class UserDAO implements GenericDAO<User> {
         return null;
     }
 
-    public boolean isAuth(String login, String password) throws SQLException{
+  /* public boolean isAuth(String login, String password) throws SQLException{
         boolean isLogin = false;
         Connection connection = ConnectionPool.INSTANCE.getConnection();
         PreparedStatement statement = connection.prepareStatement(SqlRequests.IS_AUTH);
@@ -91,29 +108,56 @@ public class UserDAO implements GenericDAO<User> {
         }
         ConnectionPool.INSTANCE.initConnection(connection);
         return isLogin;
-    }
+    }*/
 
-    public User getUserByLogin(String login) throws SQLException{
-        User user = new User();
-        System.out.println("user?"+user);
+
+
+
+
+
+  public User isAuth(String login, String password) throws SQLException {
+      User isLogin = null;
+      Connection connection = ConnectionPool.INSTANCE.getConnection();
+      PreparedStatement statement = connection.prepareStatement(SqlRequests.IS_AUTH1);
+      statement.setString(1, login);
+      statement.setString(2, password);
+      ResultSet resultSet = statement.executeQuery();
+      if (resultSet.next()) {
+          isLogin = new User();
+          isLogin.setUserId(resultSet.getInt(Parameters.USERID));
+
+      }
+      ConnectionPool.INSTANCE.initConnection(connection);
+      return isLogin;
+  }
+
+
+
+
+
+
+    public User getUserByLogin(String login) throws SQLException {
+        User user = null;
         Connection connection = ConnectionPool.INSTANCE.getConnection();
         PreparedStatement statement = connection.prepareStatement(SqlRequests.GET_USER_BY_LOGIN);
         statement.setString(1, login);
         ResultSet result = statement.executeQuery();
         System.out.println("________________________________________"+login);
         while(result.next()){
-          // User user = new User();
+           user = new User();
+            System.out.println("user#2?" +result);
             user.setUserId(result.getInt(NamesTable.USER_ID));
-            System.out.println("________________________________________"+NamesTable.USER_ID);
             user.setFirstName(result.getString(NamesTable.USER_FIRST_NAME));
             user.setLastName(result.getString(NamesTable.USER_LAST_NAME));
             user.setLogin(result.getString(NamesTable.USER_LOGIN));
             user.setPassword(result.getString(NamesTable.USER_PASSWORD));
             user.setRoleId(result.getInt(NamesTable.ROLE_ID));
+            System.out.println("__________________++______________________"+user);
         }
-        ConnectionPool.INSTANCE.initConnection(connection);
         System.out.println("_________________+_______________________"+login);
-        System.out.println("__________________++______________________"+user);
+
+        ConnectionPool.INSTANCE.initConnection(connection);
+
         return user;
     }
 
@@ -149,7 +193,7 @@ public class UserDAO implements GenericDAO<User> {
         return role;
     }
 
-    public int GetRoleById() throws SQLException {
+    public int getRoleByName() throws SQLException {
         int role_id = 0;
 
         Connection connection = ConnectionPool.INSTANCE.getConnection();

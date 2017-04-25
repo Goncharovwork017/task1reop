@@ -34,6 +34,7 @@ public class RegistrationCommand implements ActionCommand {
             request.setAttribute("user", login);
             HttpSession session = request.getSession(true);
             session.setAttribute("userType", UserType.STUDENT);
+            session.setAttribute("user", login);
             page = ConfManager.getProperty("path.page.user");
         } catch (SQLException e) {
             request.setAttribute("errorLoginPassMessage", MessManager.getProperty("message.regerror"));
@@ -54,7 +55,7 @@ public class RegistrationCommand implements ActionCommand {
         user.setLastName(lastName);
         user.setLogin(login);
         user.setPassword(password);
-        user.setRoleId(dao.GetRoleById());
+        user.setRoleId(dao.getRoleByName());
         System.out.println("registrate");
         dao.create(user);
     }

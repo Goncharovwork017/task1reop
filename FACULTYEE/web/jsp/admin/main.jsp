@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Весьма интересный сайтец</title>
+    <title>Training.by</title>
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -23,7 +23,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Training.by</a>
+            <a class="navbar-brand" href="http://localhost:8080/">Traning.by</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
@@ -42,7 +42,7 @@
                     <a href="#" class="dropdown-toggle" class="glyphicon glyphicon-user" data-toggle="dropdown"> ${user}<span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="controller?command=edit_admin_info">Редактировать</a></li>
+                        <li><a href="controller?command=edit_page_admin">Редактировать</a></li>
                         <c:if test="${userType == 'ADMIN'}">
                             <li><a href="controller?command=show_stud">Студенты</a></li>
                             <li><a href="controller?command=show_sheet_student">Записи на курс</a></li>

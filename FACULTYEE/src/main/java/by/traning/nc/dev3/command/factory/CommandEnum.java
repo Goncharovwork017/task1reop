@@ -57,6 +57,22 @@ public enum  CommandEnum {
         }
     },
 
+    SHOW_CUR_COURSE{
+        {
+
+        this.command = new ShowCurrentCoursesCommand();
+    }},
+
+
+    REG_FOR_COURSE{{
+        this.command = new RegisterForCourseCommand();
+    }},
+
+    ENDED_COURSE{{
+
+        this.command = new EndedCourseCommand();
+    }},
+
     SHOW_COURSE{
         {
             this.command = new ShowCourseCommand();
@@ -74,6 +90,14 @@ public enum  CommandEnum {
         }
     },
 
+    GET_SCORE{{
+        this.command = new GetScoreAndRewiewCommand();
+    }},
+
+    SET_SCORE{{
+        this.command = new SetScoreAndRevCommand();
+    }},
+
     ADD_COURSE
             {{
                this.command = new AddCourseCommand();
@@ -83,6 +107,9 @@ public enum  CommandEnum {
         {
             this.command = new LogoutCommand();
         }
+
+
+
     };
     ActionCommand command;
 

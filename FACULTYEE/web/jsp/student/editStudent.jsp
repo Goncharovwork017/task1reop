@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Весьма интересный сайтец</title>
+    <title>Training.by</title>
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -41,6 +41,7 @@
                     <a href="#" class="dropdown-toggle" class="glyphicon glyphicon-user" data-toggle="dropdown"> ${user}<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="controller?command=edit_page_student">Редактировать</a></li>
+                        <li><a href="controller?command=show_cur_course">Записи на курсы</a></li>
                         <li class="divider"></li>
                         <li><a href="controller?command=logout">Выйти</a></li>
                     </ul>

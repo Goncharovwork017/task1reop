@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Весьма интересный сайтец</title>
+    <title>Training.by</title>
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -43,8 +43,9 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="controller?command=edit_page_admin">Редактировать</a></li>
                         <c:if test="${userType == 'ADMIN'}">
-                            <li><a href="controller?command=show_stud">студенты</a></li>
+                            <li><a href="controller?command=show_stud">Студенты</a></li>
                             <li><a href="controller?command=show_sheet_student">Записи на курс</a></li>
+                            <li><a href="controller?command=add_course">Добавить курс</a></li>
 
                         </c:if>
                         <li class="divider"></li>
@@ -62,20 +63,33 @@
         <th>Название</th>
         <th>Препод</th>
         <th>Описание</th>
-        <%--<th>Статус</th>--%>
+        <th>Статус</th>
+        <th>Состояние</th>
     </tr>
     </thead>
     <tbody>
     <c:forEach var = "course" items="${courseList}" varStatus="i">
+    <form method="post" action="controller?command=ended_course">
+
         <tr>
-            <td>${i.count}</td>
+            <td><c:out value="${course.idCourse}" /></td>
             <td><c:out value="${ course.name }" /></td>
             <td><c:out value="${ course.teacher }" /></td>
             <td><c:out value="${ course.courseDescription }" /></td>
-            <%--<td><c:out value="${ course.status}" /></td>--%>
+            <td><c:out value="${ course.status}" /></td>
 
+            <td> <input type="hidden" name="id_course" value="${course.getIdCourse()}">
+                <c:if test="${course.status == 'STARTED'}">
+                <button type="submit">законсить</button></td>
+            </c:if>
+            <input type="hidden" name="user_id" value="<%= session.getAttribute("userId") %>" />
         </tr>
+    </form>
+
+
+        <input type="hidden" name="user_id" value="<%= session.getAttribute("userId") %>" />
     </c:forEach>
+
     <br><a href="controller?command=add_course">Добавить курс</a></br>
     </tbody>
 </table>

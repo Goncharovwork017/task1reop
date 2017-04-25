@@ -46,10 +46,10 @@
         <div class="message js-form-message"></div>
         <input type="hidden" name="command" value="registration" />
         <div class="form-group">
-            <input type="text" placeholder="Ваше имя" name="name" class="form-input">
+            <input type="text" placeholder="Ваше Имя" name="name" class="form-input">
         </div>
         <div class="form-group">
-            <input type="text" placeholder="Ваша фамилия" name="surname" class="form-input">
+            <input type="text" placeholder="Ваша Фамилия" name="surname" class="form-input">
         </div>
         <div class="form-group">
             <input type="text" placeholder="Логин" name="login" class="form-input">
@@ -60,6 +60,7 @@
         <div class="form-group">
             <input type="password" placeholder="Повторите пароль" name="password2" class="form-input">
         </div>
+        <%--${EDIT_ADMIN_INFO}--%>
         ${errorLoginPassMessage}
         <br/>
         ${wrongAction}

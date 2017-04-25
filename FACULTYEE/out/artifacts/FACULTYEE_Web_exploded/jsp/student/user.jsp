@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Очень интересный сайтец</title>
+    <title>Training.by</title>
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -27,6 +27,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             < <ul class="nav navbar-nav">
             <li><a href="controller?command=show_course">Список Курсов</a></li>
+
         </ul>
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
@@ -41,6 +42,7 @@
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="controller?command=edit_page_student">Редактировать</a></li>
+                        <li><a href="controller?command=show_cur_course">Записи на курсы</a></li>
                         <li class="divider"></li>
                         <li><a href="controller?command=logout">Выйти</a></li>
                     </ul>

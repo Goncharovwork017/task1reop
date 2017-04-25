@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Весьма интересный сайтец</title>
+    <title>Training.by</title>
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -40,7 +40,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> ${user}<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="controller?command=edit_admin_info">Редактировать</a></li>
+                        <li><a href="controller?command=edit_page_admin">Редактировать</a></li>
                         <c:if test="${userType == 'ADMIN'}">
                             <li><a href="controller?command=show_stud">Студенты</a></li>
                             <li><a href="controller?command=show_sheet_student">Записи на курс</a></li>
@@ -69,7 +69,7 @@
             Логин: <input type="text" name="login" class="form-input" value = ${login}>
         </div>
         <div class="form-group">
-            Пароль: <input type="text" name="password"  class="form-input" value = ${password}>
+            Пароль: <input type="text" name="password"   class="form-input" value = ${password} >
         </div>
         ${errorLoginPassMessage}
         <br/>

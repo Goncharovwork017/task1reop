@@ -8,6 +8,7 @@ public class Course extends Entity {
     private String name;
     private int teacher;
     private String courseDescription;
+    private String status;
 
 
     @Override
@@ -17,11 +18,19 @@ public class Course extends Entity {
                 ", name='" + name + '\'' +
                 ", teacher=" + teacher +
                 ", courseDescription='" + courseDescription + '\'' +
+                ", status" + status +
 
                 '}';
     }
 
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public int getIdCourse() {
         return idCourse;

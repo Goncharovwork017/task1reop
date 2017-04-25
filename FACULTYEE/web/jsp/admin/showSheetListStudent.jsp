@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Весьма интересный сайтец</title>
+    <title>Training.by</title>
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -46,6 +46,7 @@
                         <c:if test="${userType == 'ADMIN'}">
                             <li><a href="controller?command=show_stud">Студенты</a></li>
                             <li><a href="controller?command=show_sheet_student">Записи на курс</a></li>
+                            <li><a href="controller?command=add_course">Добавить курс</a></li>
                         </c:if>
                         <li class="divider"></li>
                         <li><a href="controller?command=logout">Выйти</a></li>
@@ -66,6 +67,7 @@
     </tr>
     </thead>
     <tbody>
+    <form method="post" action="controller?command=ended_course">
     <c:forEach var = "sheetlist" items="${sheetList}" varStatus="i">
         <tr>
             <td>${i.count}</td>>

@@ -21,12 +21,14 @@ public class ShowCourseCommand implements ActionCommand {
         String page = null;
         try{
             HttpSession session = request.getSession();
+            String login = (String) session.getAttribute("user");
             CourseDAO courseDAO = new CourseDAO();
-            List<Course> courseList = courseDAO.findAll();
+            List<Course> courseList = courseDAO.findAvailableCourses(String.valueOf(session.getAttribute("user")));
             session.setAttribute(Parameters.COURSE_LIST, courseList);
             page = ConfManager.getProperty("path.page.course");
         } catch (SQLException e){
             System.out.println("Ошибка с бд");
+            System.out.println(e.getMessage());
         }
         System.out.println("ShowCourseCommand");
         return page;

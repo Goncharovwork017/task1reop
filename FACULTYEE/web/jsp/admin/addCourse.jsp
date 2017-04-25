@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Весьма интересный сайтец</title>
+    <title>Training.by</title>
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -40,8 +40,9 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="controller?command=edit_page_admin">Редактировать</a></li>
                         <c:if test="${userType == 'ADMIN'}">
-                            <li><a href="controller?command=show_stud">студенты</a></li>
+                            <li><a href="controller?command=show_stud">Студенты</a></li>
                             <li><a href="controller?command=show_sheet_student">Записи на курс</a></li>
+                            <li><a href="controller?command=add_course">Добавить курс</a></li>
                         </c:if>
                         <li class="divider"></li>
                         <li><a href="controller?command=logout">Выйти</a></li>
@@ -52,32 +53,51 @@
     </div>
 </nav>
 
-<div class="container">
-    <form action="controller" method="POST" class="form" id="js-add-form">
-        <h3 class="form-title">Регистрация</h3>
-        <div class="message js-form-message"></div>
-        <input type="hidden" name="command" value="registration" />
-        <div class="form-group">
-            <input type="text" placeholder="Название" name="name" class="form-input">
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="Препод" name="id_teacher" class="form-input">
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="описание" name="description" class="form-input">
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="Статус" name="status" class="form-input">
-        </div>
-        ${errorLoginPassMessage}
-        <br/>
-        ${wrongAction}
-        <br/>
-        ${nullPage}
-        <div class="form-group">
-            <button type="submit" class="form-btn">Добавить</button>
-        </div>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+
+        <th>Название</th>
+        <th>айдишник препода</th>
+        <th>описание</th>
+        <th>статус</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <form name="test" method="post" action="controller?command=add_course">
+        <c:forEach var = "course" items="${courseList}" varStatus="i">
+            <tr>
+                <td>
+
+                    <p><b>Название:</b><br>
+                        <input name="name" type="text" size="15"></p>
+                    <td>
+                    <p><b>Учитель:</b><br>
+                        <input name="id_teacher" type="text" size="15" value="${ course.teacher }></p>
+                <td><c:out value="${ course.teacher }" /></td>
+            </td>
+                    <p><b>Описание:</b><br>
+                        <input name="description" type="text" size="15"></p>
+                    <p><b>Статус:</b><br>
+                        <input name="status" type="text" size="15"></p>
+                </td>x
+
+            </tr>
+            <input type="hidden" name="id_course" value="${course.idCourse}" />
+        </c:forEach>
+        <p>
+            <input type="hidden" name="id_course" value="<%= request.getAttribute("idCourse") %>">
+            <input type="submit" value="Добавить"></p>
     </form>
+    </tbody>
+
+
+</table>
+
+
+
 </div>
 </body>
 </html>

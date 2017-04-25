@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Весьма интересный сайтец</title>
+    <title>Training.by</title>
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -46,8 +46,9 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="controller?command=edit_page_admin">Редактировать</a></li>
                         <c:if test="${userType == 'ADMIN'}">
-                            <li><a href="controller?command=show_stud">студенты</a></li>
+                            <li><a href="controller?command=show_stud">Студенты</a></li>
                             <li><a href="controller?command=show_sheet_student">Записи на курс</a></li>
+                            <li><a href="controller?command=add_course">Добавить курс</a></li>
                         </c:if>
                         <li class="divider"></li>
                         <li><a href="controller?command=logout">Выйти</a></li>
@@ -69,13 +70,33 @@
     <tbody>
     <c:forEach var = "user" items="${userList}" varStatus="i">
         <tr>
-            <td><c:out value="${ user.userId }" /></td>
-            <td><c:out value="${ user.lastName }" /></td>
+            <<td>${i.count}</td>>
             <td><c:out value="${ user.firstName }" /></td>
+            <td><c:out value="${ user.lastName }" /></td>
             <td><c:out value="${ user.login }" /></td>
         </tr>
     </c:forEach>
+
     </tbody>
+
+    <%--<form method="POST" action='controller' name="frmAddUser">--%>
+        <%--User ID : <input--%>
+                         <%--value="<c:out value="${user.userId}" />" /> <br />--%>
+        <%--First Name : <input--%>
+            <%--type="text" name="firstName"--%>
+            <%--value="<c:out value="${user.firstName}" />" /> <br />--%>
+        <%--Last Name : <input--%>
+            <%--type="text" name="lastName"--%>
+            <%--value="<c:out value="${user.lastName}" />" /> <br />--%>
+
+        <%--login : <input type="text" name="email"--%>
+                       <%--value="<c:out value="${user.login}" />" /> <br /> <input--%>
+            <%--type="submit" value="Submit" />--%>
+    <%--</form>--%>
+
+
+
+
 </table>
 </body>
 </html>

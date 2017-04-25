@@ -20,11 +20,11 @@ public class EditInfoAdminCommand implements ActionCommand {
     private static String login;
     private static String password;
 
-    private void editAdmin(int userId) throws SQLException {
+    private void editAdmin(int user_id) throws SQLException {
         UserDAO dao = new UserDAO();
         User user = new User();
-        user.setId(userId);
-        System.out.println(userId+"user_id");
+        user.setUserId(user_id);
+        System.out.println(user_id+"user_id");
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setLogin(login);
@@ -42,9 +42,10 @@ public class EditInfoAdminCommand implements ActionCommand {
         login = request.getParameter(Parameters.LOGIN);
         password = request.getParameter(Parameters.PASSWORD);
         System.out.println("ТУК_ТУК2");
+        HttpSession session = request.getSession();
+        String name = (String) session.getAttribute("user");
         try {
-            HttpSession session = request.getSession();
-            String name = (String) session.getAttribute("user");
+
             UserDAO userDAO = new UserDAO();
             User user = userDAO.getUserByLogin(name);
             editAdmin(user.getUserId());

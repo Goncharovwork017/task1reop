@@ -15,12 +15,15 @@ import java.sql.SQLException;
 public class StudentEditPageCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
+        System.out.println("тук-тук1StudentEditPageCommand");
         String page = null;
         UserDAO userDao = new UserDAO();
         HttpSession session = request.getSession();
         String name = (String) session.getAttribute("user");
+        System.out.println("тук-тук2StudentEditPageCommand"+name);
         try {
             User user = userDao.getUserByLogin(name);
+            System.out.println("тук-тук3StudentEditPageCommand"+name);
             page = ConfManager.getProperty("path.page.studentEditPage");
             request.setAttribute("first_name", user.getFirstName());
             request.setAttribute("last_name", user.getLastName());

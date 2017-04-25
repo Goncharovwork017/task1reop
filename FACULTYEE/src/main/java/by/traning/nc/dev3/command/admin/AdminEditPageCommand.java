@@ -16,20 +16,17 @@ public class AdminEditPageCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        System.out.println("AdminEditPageCommandТУК_ТУК1");
+        System.out.println("AdminEditPageCommand начали менять");
         String page = null;
         UserDAO userDao = new UserDAO();
-        System.out.println("userDao"+userDao);
         HttpSession session = request.getSession();
-        System.out.println("session"+session);
-        String name = (String) session.getAttribute("user");
-        System.out.println("AdminEditPageCommandТУК_ТУК2");
-        System.out.println("AdminEditPageCommandТУК_ТУК2.1"+name);
+        String name = (String) (session.getAttribute("user"));
+        System.out.println("AdminEditPageCommand начали менять " + request);
         try {
             System.out.println("AdminEditPageCommandТУК_ТУК3");
 
             User user = userDao.getUserByLogin(name);
-            System.out.println("AdminEditPageCommandТУК_ТУК4"+name);
+            System.out.println("AdminEditPageCommandТУК_ТУК4"+user);
             page = ConfManager.getProperty("path.page.adminEditPage");
             request.setAttribute("first_name", user.getFirstName());
             request.setAttribute("last_name", user.getLastName());

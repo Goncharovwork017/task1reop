@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Весьма интересный сайтец</title>
+    <title>Training.by</title>
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="js/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -28,7 +28,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="controller?command=show_course">Список Курсов</a></li>
-            </ul>
+
+
+
+
+
+
+
+
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Искать">
@@ -42,6 +49,7 @@
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="controller?command=edit_page_student">Редактировать</a></li>
+                        <li><a href="controller?command=show_cur_course">Записи на курсы</a></li>
                         <li class="divider"></li>
                         <li><a href="controller?command=logout">Выйти</a></li>
                     </ul>
@@ -57,23 +65,35 @@
         <th>Имя</th>
         <th>ID Препода</th>
         <th>Описание</th>
-        <%--<th>СТАТУС</th>--%>
+        <th>Статус</th>
         <th>Записаться</th>
     </tr>
     </thead>
     <tbody>
+
     <c:forEach var = "course" items="${courseList}" varStatus="i">
+        <form method="post" action="controller?command=reg_for_course">
         <tr>
-            <td>${i.count}</td>
+            <td><c:out value="${course.idCourse}" /></td>
             <td><c:out value="${ course.name }" /></td>
             <td><c:out value="${ course.teacher }" /></td>
             <td><c:out value="${ course.courseDescription }" /></td>
+            <td><c:out value="${ course.status }" /></td>
+           <td> <input type="hidden" name="id_course" value="${course.getIdCourse()}">
+               <c:if test="${course.status == 'STARTED'}">
+            <button type="submit">Записаться</button></td>
+            </c:if>
             <%--<td><c:out value="${ course.status}" /></td>--%>
-            <td>
-                <button type="submit" name="sub" value="${course.getIdCourse()}">GO</button>
-            </td>
+    </form>
+
+
+        <input type="hidden" name="user_id" value="<%= session.getAttribute("userId") %>" />
+
+
 
         </tr>
+
+
     </c:forEach>
     </tbody>
 </table>

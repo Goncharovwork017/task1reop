@@ -15,4 +15,5 @@ public interface SheetListDAOImpl<T extends SheetList> {
     public void createEntity(T entity) throws SQLException;
 
     public T getEntityById(int id) throws SQLException;
+    void update(T entity) throws SQLException;
 }

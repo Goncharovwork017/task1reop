@@ -20,6 +20,7 @@ public class ShowStudentSheetListCommand implements ActionCommand {
         String page = null;
         try {
             HttpSession session = request.getSession();
+
             SheetListDAO sheetListDAO = new SheetListDAO();
             List<SheetList> list = sheetListDAO.findAll();
             session.setAttribute(Parameters.SHEET_LIST, list);
