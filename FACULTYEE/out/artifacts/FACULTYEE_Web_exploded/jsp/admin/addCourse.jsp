@@ -57,38 +57,41 @@
 <table class="table table-hover">
     <thead>
     <tr>
-
+        <th>ID</th>
         <th>Название</th>
-        <th>айдишник препода</th>
+        <th>Id препода</th>
         <th>описание</th>
         <th>статус</th>
 
     </tr>
     </thead>
     <tbody>
-    <form name="test" method="post" action="controller?command=add_course">
+    <form name="test" method="post" action="controller?command=created_course">
         <c:forEach var = "course" items="${courseList}" varStatus="i">
             <tr>
+
+                <td>
+                        <input name="idCourse" type="text" size="15" value="${course.idCourse}"></p>
+
+                </td>
+                <td>
+                        <input name="name" type="text" size="15" value="${course.name}"></p>
+                </td>
                 <td>
 
-                    <p><b>Название:</b><br>
-                        <input name="name" type="text" size="15"></p>
-                    <td>
-                    <p><b>Учитель:</b><br>
-                        <input name="id_teacher" type="text" size="15" value="${ course.teacher }></p>
-                <td><c:out value="${ course.teacher }" /></td>
-            </td>
-                    <p><b>Описание:</b><br>
-                        <input name="description" type="text" size="15"></p>
-                    <p><b>Статус:</b><br>
-                        <input name="status" type="text" size="15"></p>
-                </td>x
+                    <input name="teacher" type="text" size="15" value="${course.teacher}">
 
+                </td>
+                    <td>
+                        <input name="courseDescription" type="text" size="15" value="${course.courseDescription}">
+               </td>
+                <td>
+                        <input name="status" type="text" size="15" value="${course.status}">
+                </td>
             </tr>
-            <input type="hidden" name="id_course" value="${course.idCourse}" />
         </c:forEach>
         <p>
-            <input type="hidden" name="id_course" value="<%= request.getAttribute("idCourse") %>">
+            <input type="hidden" name="id_course" value="${course.idCourse}" />
             <input type="submit" value="Добавить"></p>
     </form>
     </tbody>

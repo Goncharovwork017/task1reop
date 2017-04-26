@@ -103,6 +103,10 @@ public enum  CommandEnum {
                this.command = new AddCourseCommand();
             }},
 
+    CREATED_COURSE{{
+        this.command = new CreatedCourseCommand();
+    }},
+
     LOGOUT {
         {
             this.command = new LogoutCommand();

@@ -21,12 +21,15 @@ public class EndedCourseCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         System.out.println("Закнчить курс пришел");
         String page = null;
+        HttpSession session = request.getSession();
         id = request.getParameter(Parameters.COURSE_ID);
+
+        int userId = (Integer) session.getAttribute("userId");
         try {
-            HttpSession session = request.getSession();
+
             editStatus(Integer.parseInt(id));
             CourseDAO courseDAO = new CourseDAO();
-            List<Course> courseList = courseDAO.findAll();
+            List<Course> courseList = courseDAO.findCourseWithTeacher(userId);
             session.setAttribute(Parameters.COURSE_LIST, courseList);
             page = ConfManager.getProperty("path.page.endedCourse");
         }catch (SQLException e){

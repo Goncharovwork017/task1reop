@@ -19,40 +19,35 @@ import java.util.List;
  * Created by ivan on 19.04.2017.
  */
 public class AddCourseCommand implements ActionCommand {
-    private static String id;
+   // private static int id = (int) System.currentTimeMillis();
     private static String name;
     private static String teacher;
     private static String courseDescription;
-    private static String status;
+    private static String status = "null";
+
  //  private static String status;
-
-
 
     @Override
     public String execute(HttpServletRequest request) {
         System.out.println("AddCourseCommand11111111111");
         String page = null;
         HttpSession session = request.getSession();
-        id = request.getParameter(Parameters.COURSE_ID);
-        int userId = (Integer) session.getAttribute("userId");
-        name = request.getParameter(Parameters.COURSE_NAME);
-       // int id_teacher = Integer.parseInt( request.getParameter(Parameters.COURSE_TEACHER));
-
-        //int id_teacher = Integer.parseInt(teacher);
-        courseDescription = request.getParameter(Parameters.COURSE_DESC);
-       status = request.getParameter(Parameters.COURSE_STATUS);
+        //id = request.getParameter(Parameters.COURSE_ID);
+         int userId = (Integer) session.getAttribute("userId");
         try {
             CourseDAO dao = new CourseDAO();
             Course course = new Course();
+          //  course.setIdCourse(id);
+
+            //course.setIdCourse(id);
             course.setName(name);
             course.setTeacher(userId);
             course.setCourseDescription(courseDescription);
             course.setStatus(status);
             dao.createEntity(course);
-
-            List<Course> courseList = dao.findCourse(Integer.parseInt(id));
+           List<Course> courseList = dao.findCourse(userId);
             session.setAttribute(Parameters.COURSE_LIST, courseList);
-            request.setAttribute("idCourse", id);
+       //    request.setAttribute("idCourse", idCourse);
 
             page = ConfManager.getProperty("path.page.addCourse");
         } catch (SQLException e) {

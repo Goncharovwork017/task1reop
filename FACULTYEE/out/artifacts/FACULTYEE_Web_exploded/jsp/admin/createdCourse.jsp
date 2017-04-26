@@ -1,3 +1,4 @@
+<%@ page import="by.traning.nc.dev3.beans.UserSHeetlist" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -29,6 +30,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="controller?command=show_course_adm">Список Курсов</a></li>
             </ul>
+
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Искать">
@@ -46,7 +48,6 @@
                             <li><a href="controller?command=show_stud">Студенты</a></li>
                             <li><a href="controller?command=show_sheet_student">Записи на курс</a></li>
                             <li><a href="controller?command=add_course">Добавить курс</a></li>
-
                         </c:if>
                         <li class="divider"></li>
                         <li><a href="controller?command=logout">Выйти</a></li>
@@ -68,42 +69,23 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var = "course" items="${courseList}" varStatus="i">
-    <form method="post" action="controller?command=ended_course">
-
-        <tr>
-            <td><c:out value="${course.idCourse}" /></td>
-            <td><c:out value="${ course.name }" /></td>
-            <td><c:out value="${ course.teacher }" /></td>
-            <td><c:out value="${ course.courseDescription }" /></td>
-            <td><c:out value="${ course.status}" /></td>
-
-            <td> <input type="hidden" name="id_course" value="${course.getIdCourse()}">
-                <c:if test="${course.status == 'STARTED'}">
-                <button type="submit">законсить</button></td>
-            </c:if>
-            <input type="hidden" name="user_id" value="<%= session.getAttribute("userId") %>" />
-            <input type="hidden" name="id_course" value="<%= session.getAttribute("idCourse") %>">
-        </tr>
-    </form>
-
-        <input type="hidden" name="id_course" value="<%= session.getAttribute("idCourse") %>">
-        <input type="hidden" name="user_id" value="<%= session.getAttribute("userId") %>" />
-    </c:forEach>
+    <form name="test" method="post" action="controller?command=created_course">
+        <c:forEach var = "course" items="${courseList}" varStatus="i">
+            <tr>
+                <td><c:out value="${ course.idCourse}" /></td>
+                <td><c:out value="${ course.name }" /></td>
+                <td><c:out value="${ course.teacher }" /></td>
+                <td><c:out value="${ course.courseDescription }" /></td>
+                <td><c:out value="${ course.status}" /></td>
 
 
-
-
-
-    <form method="post" action="controller?command=add_course">
-        <input type="hidden" name="id_course" value="${course.getIdCourse()}">
-
-        <button type="submit">Добавить курс</button>
-        <input type="hidden" name="user_id" value="<%= session.getAttribute("userId") %>" />
-        <input type="hidden" name="id_course" value="<%= session.getAttribute("idCourse") %>">
+            </tr>
+            <input type="hidden" name="id_course" value="${course.idCourse}" />
+        </c:forEach>
     </form>
     </tbody>
+
+
 </table>
 </body>
 </html>
-

@@ -83,14 +83,25 @@
                 <button type="submit">законсить</button></td>
             </c:if>
             <input type="hidden" name="user_id" value="<%= session.getAttribute("userId") %>" />
+            <input type="hidden" name="id_course" value="<%= session.getAttribute("idCourse") %>">
         </tr>
     </form>
 
-
+        <input type="hidden" name="id_course" value="<%= session.getAttribute("idCourse") %>">
         <input type="hidden" name="user_id" value="<%= session.getAttribute("userId") %>" />
     </c:forEach>
 
-    <br><a href="controller?command=add_course">Добавить курс</a></br>
+
+
+
+
+    <form method="post" action="controller?command=add_course">
+        <input type="hidden" name="id_course" value="${course.getIdCourse()}">
+
+        <button type="submit">Добавить курс</button>
+        <input type="hidden" name="user_id" value="<%= session.getAttribute("userId") %>" />
+        <input type="hidden" name="id_course" value="<%= session.getAttribute("idCourse") %>">
+    </form>
     </tbody>
 </table>
 </body>

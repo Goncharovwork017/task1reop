@@ -15,14 +15,19 @@ import java.util.List;
  * Created by ivan on 19.04.2017.
  */
 public class ShowCourseAdm implements ActionCommand {
+    private static String id;
     @Override
     public String execute(HttpServletRequest request) {
            String page = null;
-
+        HttpSession session = request.getSession();
+        int userId = (Integer) session.getAttribute("userId");
         try{
-            HttpSession session = request.getSession();
+
+            id = request.getParameter(Parameters.COURSE_ID);
+
             CourseDAO courseDAO = new CourseDAO();
-            List<Course> courseList = courseDAO.findAll();
+            List<Course> courseList = courseDAO.findCourseWithTeacher(userId);
+            request.setAttribute("idCourse", id);
             session.setAttribute(Parameters.COURSE_LIST, courseList);
             page = ConfManager.getProperty("path.page.course1");
         } catch (SQLException e){

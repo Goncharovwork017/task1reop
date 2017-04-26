@@ -46,6 +46,30 @@ public class CourseDAO implements CourseDAOImpl<Course> {
     }
 
 
+    public List<Course> findCourseWithTeacher(int id) throws SQLException {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SqlRequests.GET_ALL_COURSE_WITH_TEACHER);
+        statement.setString(1, String.valueOf(id));
+        ResultSet resultSet = statement.executeQuery();
+        List<Course> courseList = new ArrayList<>();
+
+        while(resultSet.next()){
+            Course course = new Course();
+            course.setIdCourse(Integer.parseInt(resultSet.getString(NamesTable.COURSE_ID)));
+            course.setName(resultSet.getString(NamesTable.COURSE_NAME));
+            course.setTeacher(resultSet.getInt(NamesTable.COURSE_ID_TEACHER));
+            course.setCourseDescription(resultSet.getString(NamesTable.COURSE_DESC));
+            course.setStatus(resultSet.getString(NamesTable.COURSE_STATUS));
+            courseList.add(course);
+        }
+
+        ConnectionPool.INSTANCE.initConnection(connection);
+        return courseList;
+    }
+
+
+
+
     public List<Course> findAvailableCourses(String login) throws SQLException {
         Connection connection = ConnectionPool.INSTANCE.getConnection();
         PreparedStatement statement = connection.prepareStatement(SqlRequests.FIND_CHECK_COURSE);
@@ -129,20 +153,34 @@ private static final String GET_ALL_COURSE_START = "SELECT course.id_course FROM
 
         statement.executeUpdate();
         ConnectionPool.INSTANCE.initConnection(connection);
+
+
     }
 
     @Override
     public void update(Course course) throws SQLException {
         Connection connection = ConnectionPool.INSTANCE.getConnection();
         PreparedStatement statement = connection.prepareStatement(SqlRequests.COURSE_UPDATE);
-
         statement.setInt(1 ,course.getIdCourse());
-
         statement.executeUpdate();
         ConnectionPool.INSTANCE.initConnection(connection);
-
-
     }
+
+    public void addCourseUpdate(Course course) throws SQLException {
+
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SqlRequests.COURSE_ADD_UPDATE);
+
+        statement.setString(1,course.getName());
+        statement.setString(2,course.getCourseDescription());
+        statement.setString(3,course.getStatus());
+        statement.setInt(4 ,course.getIdCourse());
+        statement.executeUpdate();
+        ConnectionPool.INSTANCE.initConnection(connection);
+    }
+
+
+
 
     @Override
     public Course getEntityById(int id) throws SQLException {
@@ -152,17 +190,24 @@ private static final String GET_ALL_COURSE_START = "SELECT course.id_course FROM
 
 
 
-    public List<Course>  findCourse(int idCourse) throws SQLException {
+    public List<Course>  findCourse(int teacher) throws SQLException {
         Connection connection = ConnectionPool.INSTANCE.getConnection();
-        PreparedStatement statement = connection.prepareStatement(SqlRequests.FIND_ALL_STUDENT_FOR_COURSE);
-        statement.setString(1, String.valueOf(idCourse));
+        PreparedStatement statement = connection.prepareStatement(SqlRequests.FIND_COURSE_WITH_ID);
+        statement.setString(1, String.valueOf(teacher));
         ResultSet resultSet = statement.executeQuery();
         List<Course> courseList = new ArrayList<>();
-
         try{
             while (resultSet.next()) {
 
 
+                Course course = new Course();
+
+                course.setIdCourse(resultSet.getInt(NamesTable.COURSE_ID));
+                course.setName(resultSet.getString(NamesTable.COURSE_NAME));
+                course.setTeacher(resultSet.getInt(NamesTable.COURSE_ID_TEACHER));
+                course.setCourseDescription(resultSet.getString(NamesTable.COURSE_DESC));
+                course.setStatus(resultSet.getString(NamesTable.COURSE_STATUS));
+                courseList.add(course);
 
             }
             ConnectionPool.INSTANCE.initConnection(connection);
@@ -175,7 +220,32 @@ private static final String GET_ALL_COURSE_START = "SELECT course.id_course FROM
 
 
 
+    public List<Course>  findLastCourse(int teacher) throws SQLException {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SqlRequests.FIND_COURSE_LAST_ADD);
+        statement.setString(1, String.valueOf(teacher));
+        ResultSet resultSet = statement.executeQuery();
+        List<Course> courseList = new ArrayList<>();
+        try{
+            while (resultSet.next()) {
 
+
+                Course course = new Course();
+
+                course.setIdCourse(resultSet.getInt(NamesTable.COURSE_ID));
+                course.setName(resultSet.getString(NamesTable.COURSE_NAME));
+                course.setTeacher(resultSet.getInt(NamesTable.COURSE_ID_TEACHER));
+                course.setCourseDescription(resultSet.getString(NamesTable.COURSE_DESC));
+                course.setStatus(resultSet.getString(NamesTable.COURSE_STATUS));
+                courseList.add(course);
+
+            }
+            ConnectionPool.INSTANCE.initConnection(connection);
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return courseList;
+    }
 
 
 
